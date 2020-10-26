@@ -1,0 +1,8 @@
+[
+    {   
+        "_id": "5f7c26c4a7d5771adb959406", 
+        "name": "Joe Smith",
+        "email": "jsmith@gmail.com",
+        "campaigns": ["5f7c26d2f340427c28e91c70"]
+    }
+]

@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_DATABASE: challenge
+    expose:
+       - 27019
+    ports:
+      - 27019:27017
+  mongo_seed:
+    image: mongo:3.2.6
+    links:
+      - mongodb
+    volumes:
+      - ./mongo-seed:/mongo-seed
+    command:
+      /mongo-seed/import.sh

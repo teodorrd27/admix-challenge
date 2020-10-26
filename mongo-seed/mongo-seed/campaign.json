@@ -1,0 +1,17 @@
+[
+    {
+        "_id": "5f7c26d2f340427c28e91c70",
+        "name": "Action Campaign",
+        "type": "traffic",
+        "creatives": [{
+            "name": "banner_1",
+            "type": "banner"
+        }, {
+            "name": "video_1",
+            "type": "video"
+        }, {
+            "name": "interactive_1",
+            "type": "interactive"
+        }]
+    }
+]
