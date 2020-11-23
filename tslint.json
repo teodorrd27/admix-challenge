@@ -2,6 +2,8 @@
     "extends": ["tslint:recommended"],
     "rules": {
       "jsx-no-multiline-js": false,
+      "object-literal-sort-keys": false,
+      "semicolon": false,
       "no-any": true,
       "max-line-length": {
         "options": [120]
