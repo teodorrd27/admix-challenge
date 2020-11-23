@@ -2,12 +2,12 @@ import { Connection, Document, Schema, SchemaOptions } from "mongoose";
 
 import { SoftDeletable } from "./common";
 
-interface IStores {
+export interface IStores {
   type: string; // [AppStore, GooglePlay, SteamStore]
   storeUrl: string;
 }
 
-interface IDemographics {
+export interface IDemographics {
   male: number; // Percentage of Male Audience (i.e. if 50+ audience predominantly male)
   byAges: {
     young: number; // 18 and below
@@ -34,7 +34,7 @@ interface IPlayStore {
   title: string;
 }
 
-interface IApps {
+export interface IApps {
   appStores: IStores[];
   demographics: IDemographics;
   geos?: string[];

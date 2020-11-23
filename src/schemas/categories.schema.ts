@@ -1,4 +1,4 @@
-import { Document, model, Schema } from "mongoose";
+import { Connection, Document, Schema } from "mongoose";
 
 import { SoftDeletable } from "./common";
 
@@ -18,4 +18,6 @@ const CategorySchemaFields: Record<keyof ICategory, any> = {
 const CategorySchema = new Schema(CategorySchemaFields, { timestamps: true });
 
 interface ICategoryDocument extends ICategory, Document {}
-export const Category = model<ICategoryDocument>("Category", CategorySchema);
+
+export const Category = (connection: Connection) =>
+  connection.model<ICategoryDocument>("Category", CategorySchema);

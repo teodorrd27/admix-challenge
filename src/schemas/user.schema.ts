@@ -2,8 +2,8 @@ import { Connection, Document, Schema, Types } from "mongoose";
 
 import { SoftDeletable } from "./common";
 
-interface IUsers {
-  campaigns: string[];
+export interface IUsers {
+  campaigns?: Types.ObjectId[];
   name: string;
   email: string;
 }
@@ -17,6 +17,7 @@ const UsersSchemaFields: Record<keyof IUsers, any> = {
 };
 
 const UsersSchema = new Schema(UsersSchemaFields, { timestamps: true });
-interface IUsersDocument extends IUsers, Document {}
+
+export interface IUsersDocument extends IUsers, Document {}
 export const Users = (connection: Connection) =>
   connection.model<IUsersDocument>("Users", UsersSchema);

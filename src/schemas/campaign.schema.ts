@@ -2,7 +2,7 @@ import { Connection, Document, Schema } from "mongoose";
 
 import { SoftDeletable } from "./common";
 
-interface ICreative {
+export interface ICreative {
   name: string;
   type: "banner" | "video" | "interactive";
   categories: string[];
@@ -30,6 +30,6 @@ const CampaignSchemaFields: Record<keyof ICampaign, any> = {
 
 const CampaignSchema = new Schema(CampaignSchemaFields, { timestamps: true });
 
-interface ICampaignDocument extends ICampaign, Document {}
+export interface ICampaignDocument extends ICampaign, Document {}
 export const Campaigns = (connection: Connection) =>
   connection.model<ICampaignDocument>("Campaign", CampaignSchema);
