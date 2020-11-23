@@ -1,6 +1,6 @@
 [
     {
-        "_id": "5f7c26d2f340427c28e91c70",
+        "_id": {"$oid": "5f7c26d2f340427c28e91c70"},
         "name": "Action Campaign",
         "type": "traffic",
         "creatives": [{
