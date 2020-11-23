@@ -26,6 +26,7 @@ provider:
   stage: ${opt:stage, 'dev'}
   environment:
     STAGE: ${opt:stage, self:provider.stage}
+    MONGO_URI: mongodb://0.0.0.0:27019/challenge
 
   # you can add statements to the Lambda function's IAM Role here
   iamRoleStatements:
@@ -51,8 +52,13 @@ functions:
     handler: dist/handlers/handler.getUserById
     events:
       - http:
-          path: /users
+          path: /users/{id}
           method: get
+          request:
+            parameters:
+              paths:
+                id: true
+    warmup: true
   get-campaign:
     handler: dist/handlers/handler.getCampaignById
     events:
@@ -67,7 +73,7 @@ functions:
     handler: dist/handlers/handler.getUserCampaigns
     events:
       - http:
-          path: /user/campaign/{userId}
+          path: /user/{userId}/campaign
           method: get
           request:
             parameters:
@@ -100,6 +106,26 @@ functions:
     events:
       - http:
           path: /campaign/{id}
+          method: put
+          request:
+            parameters:
+              paths:
+                id: true
+  assign-campaign:
+    handler: dist/handlers/handler.assignCampaign
+    events:
+      - http:
+          path: /users/{id}/campaigns
+          method: put
+          request:
+            parameters:
+              paths:
+                id: true
+  assign-creatives:
+    handler: dist/handlers/handler.assignCreatives
+    events:
+      - http:
+          path: /campaign/{id}/creatives
           method: put
           request:
             parameters:
