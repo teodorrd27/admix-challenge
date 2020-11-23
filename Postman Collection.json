@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "8b23c4ff-d5f9-4529-a3cd-9e080b39cf5a",
+		"name": "AdmixChallenge",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:3000/users/5f7c26c4a7d5771adb959406",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/users/5f7c26c4a7d5771adb959406",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"5f7c26c4a7d5771adb959406"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/campaign/5f7c26d2f340427c28e91c70",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/campaign/5f7c26d2f340427c28e91c70",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"campaign",
+						"5f7c26d2f340427c28e91c70"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/user/campaign/5f7c26c4a7d5771adb959406",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3000/user/5f7c26c4a7d5771adb959406/campaign",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"user",
+						"5f7c26c4a7d5771adb959406",
+						"campaign"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Don Joe\",\n    \"email\": \"donJoe@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/users/5f7c26c4a7d5771adb959406",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/users/5f7c26c4a7d5771adb959406",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"5f7c26c4a7d5771adb959406"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/app/query",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"store\": \"AppStore\",\n    \"gender\": \"male\",\n    \"demographics\": [\"young\", \"youngMid\", \"senior\"],\n    \"geos\": [\"GB\"],\n    \"categories\": [\"GAMES_PUZZLE\", \"UTILITIES\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/app/query",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"app",
+						"query"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/users/5f7c26c4a7d5771adb959406/campaigns",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"campaignId\": \"5f7c26d2f340427c28e91c70\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/users/5f7c26c4a7d5771adb959406/campaigns",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"5f7c26c4a7d5771adb959406",
+						"campaigns"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:3000/campaign/5f7c26d2f340427c28e91c70",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"no more banner\",\n    \"type\": \"dddddd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3000/campaign/5f7c26d2f340427c28e91c70/creatives",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"campaign",
+						"5f7c26d2f340427c28e91c70",
+						"creatives"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
