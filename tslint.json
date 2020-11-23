@@ -3,8 +3,12 @@
     "rules": {
       "jsx-no-multiline-js": false,
       "object-literal-sort-keys": false,
+      "interface-name": false,
       "semicolon": false,
-      "no-any": true,
+      "no-any": false,
+      "no-unused-expression": false,
+      "allow-fast-null-checks": true,
+      "allow-short-circuit": true,
       "max-line-length": {
         "options": [120]
       }
