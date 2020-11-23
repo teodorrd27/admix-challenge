@@ -6,7 +6,7 @@ import * as sinon from 'sinon';
 import { promisify } from "util";
 import chaiAsPromised from 'chai-as-promised';
 import sinonStubPromise from 'sinon-stub-promise';
-import { createConnection } from "serverless-typeorm";
+import { createConnection } from "mongoose";
 import {
   getUserById,
 } from "../../src/handlers/handler";
@@ -34,11 +34,12 @@ describe("Handler", () => {
       createConnectionStub.restore();
     }
   })
+  
   describe("getUserById()", () => {
     it("Successfully returns users", async () => {
         createConnectionStub = createConnection = sinon.stub().resolves({isConnected: true, close: sinon.stub()});
         const dummyEvent = {
-          queryStringParameters: {
+          pathParameters: {
             id: "5f7c26c4a7d5771adb959406"
           },
         };
@@ -46,7 +47,7 @@ describe("Handler", () => {
         const func = promisify(getUserById);
         const results = await func(dummyEvent, {});
         const body = JSON.parse(results.body);
-        expect(body.data[0]._id).to.equal("5f7c26c4a7d5771adb959406");
+        expect(body.user._id).to.equal("5f7c26c4a7d5771adb959406");
     });
   })
 });
