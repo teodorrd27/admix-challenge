@@ -1,50 +1,46 @@
+# Admix Challenge
 
-# Admix API Challenge
+Implemented everything as per spec with comprehensive typing.
 
-## Set up
-```
-1) npm i
-2) docker-compose up -d
-3) tsc
-4) sls offline
-```
+## Decisions and caveats
+### TypeORM vs Mongoose
+TypeORM catches me out sometimes because it forces me to think in terms of entities rather than documents and objects. Works very nice with Postgres, not so much with MongoDB. So I swapped it out for Mongoose and redefined the entities as schemas.
+### Middy
+Middy was great. I managed to offload most of the response translation and setup for each lambda onto a /middleware/index.ts file. This definitely needs refactoring though.
+### The Query
+For the prioritisation query, I used a MongoDB aggregation pipeline and mongoose. I optimised the pipeline by narrowing down the amount of absolutely necessary documents before starting to calculate any scores.
+### Profiling
+I am also caching the MongoDB connection and service using the middleware in order to save on subsequent lambda calls. On local SLS, the first query is usually about 600ms while every subsequent query is well below 15ms on average.
 
-## Task
+## Query aggregation task
+For this portion, I had to decide what "match percentage" actually means. I could have interpreted it as though we should flatten the filters into an array and then calculate how many of those are present in each returned document. I thought there was a smarter way of doing it. It is fully normalisable to a percentage if necessary to show it on a front end.
+The aggregation pipeline I put in place instead attempts to sort by relevance. What is relevant? Since 'stores', 'gender', and 'demographic' were considered required fields I have made the following assumptions:
 
-Admix wants to create a CRUD service that allows users to create, update, and fetch advertising Campaigns. In addition to this, Admix want to help users find apps that match with certain audience demographics, so they can more effectively target adverts.
+ - We are searching by stores, we only want results for either store, not both since this field cannot be both.
+ - Gender is a percentage metric. It can therefore be used as a scaling coefficient on a solid metric that already exists (demographics). The gender distribution in each demographic is unknown. If the intended gender percentage is low in the target documents, they will be much less likely to come up.
+ - Demographic is a definite metric. It can then be used to calculate a probably relevant score when multiplied with the gender percentage.
+ - Since 'geos' and 'categories' are optional, I assumed that they are tools for narrowing a result if it comes back too large.
+ 
+### Methodology and rationale
+I aimed to generate a score that could then be used to sort documents in decreasing order i.e. the higher score a document has, the higher it appears in the response. I took a demographically centric approach in the sense that I only used the gender and age information to generate a score. I used the 'geos' and 'categories' parameters when present to narrow the search prior to executing the aggregation pipeline to make the calculation cheaper.
+To illustrate the pipeline in a nutshell, it is basically doing this:
 
-Please unpack the zip provided and complete the api outline provided.
+ - Multiply each document's desired demographics (from the provided array) by the percentage target gender.
+ - Add the multiplied results for each document. (There will be as many multiplies as there are ages provided in the demographics array)
+ - Add result as a score field in the document.
+ - Decreasingly sort all documents by score.
+...Blazingly fast (~15ms average)
 
-## Requirements:
+## Room for improvement
+### Testing
+I ran out of time before I could implement some good test coverage. Lucikly the typing will prevent a lot of the mistakes before runtime but that's no excuse.
+The spec.js files were having trouble with recognising functions of the `const func = () => {}` variety that return a Mongoose schema. I'm sure it could be easily fixed given enough time.
 
- - The service needs to be able to fetch, create and update Users. (Schema provided)
- - The service needs to be able to fetch, create and update campaigns. (Schema provided)
- - The service needs to be able to assign Campaigns to Users.
- - The service needs to be able to assign Creatives to Campaigns (Schema Provided).
- - The service needs to be able to query the app collection provided and order them by percentage audience match. (Query spec provided)
+### Architecture
+I factored out clunky operations from handlers to middleware. Unfortunately, the Challenge service isn't very DRY and there's lots of scope there to parametrise and generalise some database operations. Moreover, it would be good to split Categories, Users, and Apps into separate services altogether.
 
-## App Query Example
-```
-{
-    "categories":["ACTION", "GAME_ACTION"], 
-    "store" : ["AppStore", "StreamStore"], @required
-    "demographics":["young", "old"], @required
-    "geos":["us"] ,
-    "gender":["male", "female"]  @required
-}
-```
+### Types
+I tend to just write the interface wherever I need it and then extract it to a separate file. There are many candidates for refactoring here with lots of inline interfaces and types.
 
-## Resources
- - TypeORM - https://typeorm.io/#/mongodb
- - Serverless - https://www.serverless.com/framework/docs/
- - Mocha - https://mochajs.org/
- - Chai - https://www.chaijs.com/
- - Sinon - https://sinonjs.org/
- - Middy - https://github.com/middyjs/middy
-
-
-## Possible Required Fix
-If when you run `docker-compose up -d` and mongo does not seed, then you may need to give the import.sh file permissions to run.
-Please use the below line of code from the root directory
-`chmod +x ./mongo-seed/import.sh`
-
+## Try it on POSTMAN
+I included a Postman collection so you can easily try it out.
