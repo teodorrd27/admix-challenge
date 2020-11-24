@@ -16,7 +16,7 @@ I am also caching the MongoDB connection and service using the middleware in ord
 For this portion, I had to decide what "match percentage" actually means. I could have interpreted it as though we should flatten the filters into an array and then calculate how many of those are present in each returned document. I thought there was a smarter way of doing it. It is fully normalisable to a percentage if necessary to show it on a front end.
 The aggregation pipeline I put in place instead attempts to sort by relevance. What is relevant? Since 'stores', 'gender', and 'demographic' were considered required fields I have made the following assumptions:
 
- - We are searching by stores, we only want results for either store, not both since this field cannot be both.
+ - We are searching by stores, we only want results that include our chosen store since this is a binary choice.
  - Gender is a percentage metric. It can therefore be used as a scaling coefficient on a solid metric that already exists (demographics). The gender distribution in each demographic is unknown. If the intended gender percentage is low in the target documents, they will be much less likely to come up.
  - Demographic is a definite metric. It can then be used to calculate a probably relevant score when multiplied with the gender percentage.
  - Since 'geos' and 'categories' are optional, I assumed that they are tools for narrowing a result if it comes back too large.
