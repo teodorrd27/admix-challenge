@@ -29,7 +29,7 @@ To illustrate the pipeline in a nutshell, it is basically doing this:
  - Add the multiplied results for each document. (There will be as many multiplies as there are ages provided in the demographics array for each document.)
  - Add the above result as a score field in each document.
  - Decreasingly sort all documents by score.
-...Blazingly fast (~15ms average)
+ - The whole pipeline is blazingly fast (~15ms average on warm lambdas)
 
 ## Room for improvement
 ### Testing
