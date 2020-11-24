@@ -27,7 +27,7 @@ To illustrate the pipeline in a nutshell, it is basically doing this:
 
  - Multiply each document's desired demographics (from the provided array) by the percentage target gender. Since the gender is encoded as male population percentage, female percentage can be gotten by subtracting the field from 100.
  - Add the multiplied results for each document. (There will be as many multiplies as there are ages provided in the demographics array for each document.)
- - Add result as a score field in the document.
+ - Add the above result as a score field in each document.
  - Decreasingly sort all documents by score.
 ...Blazingly fast (~15ms average)
 
