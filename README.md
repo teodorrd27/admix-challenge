@@ -25,7 +25,7 @@ The aggregation pipeline I put in place instead attempts to sort by relevance. W
 I aimed to generate a score that could then be used to sort documents in decreasing order i.e. the higher score a document has, the higher it appears in the response. I took a demographically centric approach in the sense that I only used the gender and age information to generate a score. I used the 'geos' and 'categories' parameters when present to narrow the search prior to executing the aggregation pipeline to make the calculation cheaper.
 To illustrate the pipeline in a nutshell, it is basically doing this:
 
- - Multiply each document's desired demographics (from the provided array) by the percentage target gender.
+ - Multiply each document's desired demographics (from the provided array) by the percentage target gender. Since the gender is encoded as male population percentage, female percentage can be gotten by subtracting the field from 100.
  - Add the multiplied results for each document. (There will be as many multiplies as there are ages provided in the demographics array)
  - Add result as a score field in the document.
  - Decreasingly sort all documents by score.
