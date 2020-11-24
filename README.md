@@ -34,7 +34,7 @@ To illustrate the pipeline in a nutshell, it is basically doing this:
 ## Room for improvement
 ### Testing
 I ran out of time before I could implement some good test coverage. Lucikly the typing will prevent a lot of the mistakes before runtime but that's no excuse.
-The spec.js files were having trouble with recognising functions of the `const func = () => {}` variety that return a Mongoose schema. I'm sure it could be easily fixed given enough time.
+The spec.js files were having trouble with recognising functions of the `const func = () => {}` variety that return a Mongoose model. I'm sure it could be easily fixed given enough time.
 
 ### Architecture
 I factored out clunky operations from handlers to middleware. Unfortunately, the Challenge service isn't very DRY and there's lots of scope there to parametrise and generalise some database operations. Moreover, it would be good to split Categories, Users, and Apps into separate services altogether.
